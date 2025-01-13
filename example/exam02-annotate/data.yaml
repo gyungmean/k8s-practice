@@ -1,0 +1,116 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    created_by: kevin
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"labels":{"app":"apache","name":"apache","tier":"frontEnd"},"name":"apache","namespace":"default"},"spec":{"containers":[{"image":"bitnami/apache","name":"apache","resources":{"limits":{"cpu":"500m","memory":"128Mi"}}}]}}
+  creationTimestamp: "2025-01-09T03:36:16Z"
+  labels:
+    app: apache
+    name: apache
+    tier: frontEnd
+  name: apache
+  namespace: default
+  resourceVersion: "23230"
+  uid: 5d3f7715-016d-483f-8faa-c3be25de0e8d
+spec:
+  containers:
+  - image: bitnami/apache
+    imagePullPolicy: Always
+    name: apache
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 500m
+        memory: 128Mi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-jvcfv
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: cwave-cluster-worker2
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-jvcfv
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2025-01-09T03:36:27Z"
+    status: "True"
+    type: PodReadyToStartContainers
+  - lastProbeTime: null
+    lastTransitionTime: "2025-01-09T03:36:16Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2025-01-09T03:36:27Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2025-01-09T03:36:27Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2025-01-09T03:36:16Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://ad6c7533681b57e87ada74e417e4b6ed00dcfc0e7545a9be447964b888891910
+    image: docker.io/bitnami/apache:latest
+    imageID: docker.io/bitnami/apache@sha256:75f7fe30de78f4411eb5f8743d375e462838be7abba7fe526341c9d71949d8c2
+    lastState: {}
+    name: apache
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2025-01-09T03:36:27Z"
+  hostIP: 172.22.0.2
+  hostIPs:
+  - ip: 172.22.0.2
+  phase: Running
+  podIP: 10.110.1.3
+  podIPs:
+  - ip: 10.110.1.3
+  qosClass: Guaranteed
+  startTime: "2025-01-09T03:36:16Z"
