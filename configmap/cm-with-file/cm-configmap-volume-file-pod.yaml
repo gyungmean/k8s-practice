@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-configmap-vol
+  labels:
+    name: nginx-configmap-vol
+spec:
+  volumes:
+  - name: config
+    configMap:
+      name: fortune-config
+  containers:
+  - name: nginx-configmap-vol
+    image: nginx:1.7.9
+    volumeMounts:
+    - name:  config
+      mountPath:  /etc/nginx/conf.d/default.conf
+      subPath: custom-nginx-config.conf
+      readOnly: true
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8080
